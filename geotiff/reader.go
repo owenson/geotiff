@@ -395,7 +395,7 @@ func (g *GeoTIFF) AtCoord(x float64, y float64, interp bool) (float32, error) {
 
 	xIDx := int(math.Abs(rect.UpperLeft.Lon-p.Lon) / g.PixelScaleX)
 	yIDx := int(math.Abs(p.Lat-rect.UpperLeft.Lat) / g.PixelScaleY)
-	val, err := g.loc(xIDx, yIDx)
+	val, err := g.Loc(xIDx, yIDx)
 	if err != nil {
 		return 0, err
 	}
@@ -456,7 +456,7 @@ func (g *GeoTIFF) AtPoints(points []Point, interp bool) ([]float32, error) {
 }
 
 // loc returns data by location (i.e. an X, and Y point on the image)
-func (g *GeoTIFF) loc(x int, y int) (float32, error) {
+func (g *GeoTIFF) Loc(x int, y int) (float32, error) {
 	if x < 0 || x >= int(g.imageWidth) || y < 0 || y >= int(g.imageLength) {
 		return 0.0, errors.New("point lies outside image")
 	}
